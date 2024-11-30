@@ -74,13 +74,15 @@ export const Footer: React.FC = () => {
             {/* Social Links */}
             <div className="flex items-center gap-6">
               {[
-                { icon: Github, label: 'GitHub' },
-                { icon: Twitter, label: 'Twitter' },
-                { icon: Linkedin, label: 'LinkedIn' }
-              ].map(({ icon: Icon, label }) => (
+                { icon: Github, label: 'GitHub', link: 'https://github.com/NikeGunn' },
+                { icon: Twitter, label: 'Twitter', link: 'https://x.com/Carryon_Nikhil' },
+                { icon: Linkedin, label: 'LinkedIn', link: 'https://linkedin.com/in/bhagatnikhil/' }
+              ].map(({ icon: Icon, label, link }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
                   aria-label={label}
                 >
