@@ -6,6 +6,12 @@
 
 A sophisticated React-based application for visualizing and understanding neural networks in real-time. Built with modern web technologies, this tool helps AI researchers and students better comprehend neural network behavior through interactive visualizations.
 
+## 🌐 Live Demo
+
+Explore the application live at: [https://analyzer.bhagatnikhil.com.np/](https://analyzer.bhagatnikhil.com.np/)
+
+---
+
 ## 🌟 Features
 
 - **Interactive Neural Network Visualization**
