@@ -8,7 +8,7 @@ A sophisticated React-based application for visualizing and understanding neural
 
 ## 🌐 Live Demo
 
-Explore the application live at: <a href="https://analyzer.bhagatnikhil.com.np/" target="_blank">https://analyzer.bhagatnikhil.com.np/</a>
+Explore the application live at: [https://analyzer.bhagatnikhil.com.np/](https://analyzer.bhagatnikhil.com.np/)
 ---
 
 ## 🌟 Features
