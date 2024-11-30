@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', system-ui, sans-serif;
+    letter-spacing: -0.025em;
+  }
+}
+
+@layer base {
+  body {
+    margin: 0; /* Remove default browser margins */
+    padding: 0; /* Remove extra padding */
+    background-color: #0b1120; /* Match your website's background color */
+    color: #ffffff; /* Ensure text is visible against the dark background */
+    box-sizing: border-box;
+  }
+
+  .container {
+    max-width: 1200px; /* Limit the content width for readability */
+    margin: 0 auto; /* Center the content horizontally */
+    padding: 0 1.5rem; /* Add some padding inside the container */
+  }
+}
+
