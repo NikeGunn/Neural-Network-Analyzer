@@ -53,6 +53,7 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
 
   const options = {
     responsive: true,
+    maintainAspectRatio: false, // Allow chart to adjust height
     interaction: {
       mode: 'index' as const,
       intersect: false,
@@ -61,9 +62,9 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
       legend: {
         position: 'top' as const,
         labels: {
-          padding: 20,
+          padding: 10,
           font: {
-            size: 16,
+            size: 12,
             weight: 'bold' as const,
           },
           usePointStyle: true,
@@ -74,10 +75,10 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
         display: true,
         text: 'Neural Network Input Patterns',
         font: {
-          size: 22,
+          size: 16,
           weight: 'bold' as const,
         },
-        padding: { bottom: 20 }
+        padding: { bottom: 10 }
       },
       tooltip: {
         backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark tooltips for clarity
@@ -173,50 +174,45 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
   };
 
   return (
-    <motion.div className="space-y-6">
+    <motion.div className="space-y-4 sm:space-y-6">
       {/* Data Analysis Header */}
-      <div className="flex items-center gap-4 mb-8">
-        <div className="h-8 w-1 bg-gradient-to-b from-[#00FFFF] to-[#FF10F0]" />
-        <h2 className="text-2xl font-bold text-white/90">Neural Network Analysis</h2>
+      <div className="flex items-center gap-2 sm:gap-4 mb-4 sm:mb-8">
+        <div className="h-6 sm:h-8 w-1 bg-gradient-to-b from-[#00FFFF] to-[#FF10F0]" />
+        <h2 className="text-xl sm:text-2xl font-bold text-white/90">Neural Network Analysis</h2>
       </div>
 
       {/* Chart Section */}
       <motion.div 
-        className="relative bg-black/40 backdrop-blur-xl p-8 rounded-3xl border border-white/10
-                   shadow-[0_0_30px_rgba(0,255,255,0.15)] overflow-hidden"
+        className="relative bg-black/40 backdrop-blur-xl p-4 sm:p-8 rounded-2xl sm:rounded-3xl 
+                   border border-white/10 shadow-[0_0_30px_rgba(0,255,255,0.15)] overflow-hidden"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
       >
-        {/* Ambient Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00FFFF] rounded-full blur-[100px] opacity-10" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FF10F0] rounded-full blur-[100px] opacity-10" />
-          <div className="absolute inset-0 bg-[url('/neural-grid.svg')] opacity-5" />
+        <div className="h-[300px] sm:h-[400px] relative z-10">
+          <Line data={chartData} options={options} />
         </div>
-
-        <Line data={chartData} options={options} className="relative z-10" />
       </motion.div>
 
       {/* Analysis Results Grid */}
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
         {stats?.map((stat, index) => (
           <motion.div
             key={index}
-            className="relative bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10
-                       hover:border-white/20 transition-all duration-300"
+            className="relative bg-black/40 backdrop-blur-xl p-4 sm:p-6 rounded-xl sm:rounded-2xl 
+                       border border-white/10 hover:border-white/20 transition-all duration-300"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: index * 0.1 }}
           >
             {/* Stat Header */}
-            <div className="flex items-center gap-3 mb-6">
-              <div className="flex space-x-1.5">
+            <div className="flex items-center gap-2 sm:gap-3 mb-4 sm:mb-6">
+              <div className="flex space-x-1">
                 {Object.values(neonColors).map((color, i) => (
                   <motion.div
                     key={i}
-                    className="w-1 h-4 rounded-full"
+                    className="w-0.5 sm:w-1 h-3 sm:h-4 rounded-full"
                     style={{ backgroundColor: color }}
-                    animate={{ height: ['16px', '8px', '16px'] }}
+                    animate={{ height: ['12px', '6px', '12px'] }}
                     transition={{ 
                       duration: 1.5,
                       delay: i * 0.2,
@@ -225,11 +221,11 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
                   />
                 ))}
               </div>
-              <h3 className="text-lg font-semibold text-white/80">Input {index + 1} Statistics</h3>
+              <h3 className="text-base sm:text-lg font-semibold text-white/80">Input {index + 1} Statistics</h3>
             </div>
 
             {/* Stat Values */}
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               <div>
                 <div className="flex justify-between mb-2">
                   <span className="text-white/60">Average</span>
@@ -286,13 +282,14 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
 
         {/* Summary Section */}
         <motion.div 
-          className="col-span-2 bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10"
+          className="col-span-1 sm:col-span-2 bg-black/40 backdrop-blur-xl p-4 sm:p-6 
+                     rounded-xl sm:rounded-2xl border border-white/10"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
         >
-          <h3 className="text-lg font-semibold text-white/80 mb-4">Analysis Summary</h3>
-          <div className="space-y-4 text-white/60">
+          <h3 className="text-base sm:text-lg font-semibold text-white/80 mb-3 sm:mb-4">Analysis Summary</h3>
+          <div className="space-y-3 sm:space-y-4 text-sm sm:text-base text-white/60">
             {summaries.map((summary, index) => (
               <p key={index} className="leading-relaxed">{summary}</p>
             ))}
