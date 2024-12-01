@@ -57,9 +57,12 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-white">Stay Updated</h3>
+          {/* Newsletter Section */}
+          <div className="md:border-l md:border-gray-800 md:pl-12">
+            <h3 className="text-lg font-semibold mb-4 text-white">Subscribe to Updates</h3>
+            <p className="text-gray-400 text-sm mb-4">
+              Stay informed about the latest features and releases.
+            </p>
             <Newsletter />
           </div>
         </div>
