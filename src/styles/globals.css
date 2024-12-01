@@ -1,0 +1,13 @@
+@layer components {
+  .glassmorphism {
+    @apply bg-black/40 backdrop-blur-xl border border-white/10;
+  }
+
+  .neon-shadow {
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+  }
+
+  .neon-shadow:hover {
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+  }
+} 

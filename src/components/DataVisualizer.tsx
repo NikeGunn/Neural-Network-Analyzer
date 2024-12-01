@@ -12,6 +12,7 @@ import {
   Filler
 } from 'chart.js';
 import type { InputData } from '../types/neural-network';
+import { motion } from 'framer-motion';
 
 ChartJS.register(
   CategoryScale,
@@ -34,19 +35,19 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
     datasets: data[0]?.values.map((_, valueIndex) => ({
       label: `Input ${valueIndex + 1}`,
       data: data.map(d => d.values[valueIndex]),
-      borderColor: `hsl(${valueIndex * 60}, 70%, 50%)`,
-      backgroundColor: `hsla(${valueIndex * 60}, 70%, 50%, 0.1)`,
-      borderWidth: 2,
+      borderColor: `rgba(255, 255, 255, 0.6)`,  // Light borders, to keep it neutral
+      backgroundColor: `rgba(255, 255, 255, 0.2)`,  // Soft background for the fills
+      borderWidth: 3,
       fill: true,
-      tension: 0.4,
-      pointRadius: 6,
-      pointHoverRadius: 8,
-      pointBackgroundColor: `hsl(${valueIndex * 60}, 70%, 50%)`,
+      tension: 0.6,
+      pointRadius: 8,
+      pointHoverRadius: 10,
+      pointBackgroundColor: `rgba(255, 255, 255, 0.6)`,  // Light point colors
       pointBorderColor: '#fff',
-      pointBorderWidth: 2,
+      pointBorderWidth: 3,
       pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: `hsl(${valueIndex * 60}, 70%, 50%)`,
-      pointHoverBorderWidth: 2,
+      pointHoverBorderColor: `rgba(255, 255, 255, 0.6)`,
+      pointHoverBorderWidth: 3,
     })) || []
   }), [data]);
 
@@ -62,8 +63,8 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
         labels: {
           padding: 20,
           font: {
-            size: 13,
-            weight: '500' as const,
+            size: 16,
+            weight: 'bold' as const,
           },
           usePointStyle: true,
           pointStyle: 'circle',
@@ -73,21 +74,21 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
         display: true,
         text: 'Neural Network Input Patterns',
         font: {
-          size: 16,
-          weight: '600' as const,
+          size: 22,
+          weight: 'bold' as const,
         },
-        padding: { bottom: 30 }
+        padding: { bottom: 20 }
       },
       tooltip: {
-        backgroundColor: 'rgba(0, 0, 0, 0.8)',
+        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Dark tooltips for clarity
         titleFont: {
-          size: 13,
-          weight: '600' as const,
+          size: 15,
+          weight: 'bold' as const,
         },
         bodyFont: {
-          size: 12,
+          size: 13,
         },
-        padding: 12,
+        padding: 18,
         usePointStyle: true,
         callbacks: {
           label: (context: any) => {
@@ -106,25 +107,27 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
         ticks: {
           padding: 10,
           font: {
-            size: 12,
+            size: 14,
+            weight: 'bold' as const,
           },
         },
       },
       y: {
         grid: {
-          color: 'rgba(255, 255, 255, 0.1)',
+          color: 'rgba(255, 255, 255, 0.1)',  // Subtle grid lines
         },
         ticks: {
           padding: 10,
           font: {
-            size: 12,
+            size: 14,
+            weight: 'bold' as const,
           },
         },
       },
     },
     animation: {
-      duration: 1000,
-      easing: 'easeInOutQuart',
+      duration: 1200,
+      easing: 'easeInOutCubic' as const,
     },
   };
 
@@ -150,8 +153,8 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
       - The average is like the "middle value" (${stat.avg.toFixed(2)}), helping us see what most numbers look like.
       - The standard deviation is ${stat.stdDev.toFixed(2)}. ${
         isLowVariation
-          ? "This means the numbers are close to each other, like classmates in a group photo."
-          : "This means the numbers are spread out, like students running across a playground."
+          ? "This means the numbers are close to each other, like students in a group photo."
+          : "This means the numbers are spread out, like students in different parts of a classroom."
       }
       - The range (${stat.min.toFixed(2)} to ${stat.max.toFixed(2)}) shows the smallest and largest values.
       `;
@@ -162,51 +165,140 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
   const stats = calculateStats();
   const summaries = generateSummary();
 
+  const neonColors = {
+    cyberBlue: '#00FFFF',
+    neonPink: '#FF10F0',
+    ultraViolet: '#7B61FF',
+    plasmaGreen: '#00FF94'
+  };
+
   return (
-    <div className="space-y-6">
-      <div className="bg-white/5 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-        <Line data={chartData} options={options} className="min-h-[400px]" />
+    <motion.div className="space-y-6">
+      {/* Data Analysis Header */}
+      <div className="flex items-center gap-4 mb-8">
+        <div className="h-8 w-1 bg-gradient-to-b from-[#00FFFF] to-[#FF10F0]" />
+        <h2 className="text-2xl font-bold text-white/90">Neural Network Analysis</h2>
       </div>
-      
-      <div className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl shadow-lg">
-        <h3 className="text-xl font-semibold mb-6 text-white/90">Analysis Results</h3>
-        <div className="grid gap-4 md:grid-cols-2">
-          {stats?.map((stat, index) => (
-            <div 
-              key={index} 
-              className="bg-white/5 p-4 rounded-lg backdrop-blur-sm border border-white/10 hover:border-white/20 transition-colors"
-            >
-              <h4 className="font-medium mb-3 text-white/90">Input {index + 1} Statistics</h4>
-              <div className="space-y-2 text-sm">
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Average:</span>
-                  <span className="font-mono text-white/90">{stat.avg.toFixed(3)}</span>
+
+      {/* Chart Section */}
+      <motion.div 
+        className="relative bg-black/40 backdrop-blur-xl p-8 rounded-3xl border border-white/10
+                   shadow-[0_0_30px_rgba(0,255,255,0.15)] overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+      >
+        {/* Ambient Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-[#00FFFF] rounded-full blur-[100px] opacity-10" />
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#FF10F0] rounded-full blur-[100px] opacity-10" />
+          <div className="absolute inset-0 bg-[url('/neural-grid.svg')] opacity-5" />
+        </div>
+
+        <Line data={chartData} options={options} className="relative z-10" />
+      </motion.div>
+
+      {/* Analysis Results Grid */}
+      <div className="grid grid-cols-2 gap-6">
+        {stats?.map((stat, index) => (
+          <motion.div
+            key={index}
+            className="relative bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10
+                       hover:border-white/20 transition-all duration-300"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 }}
+          >
+            {/* Stat Header */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="flex space-x-1.5">
+                {Object.values(neonColors).map((color, i) => (
+                  <motion.div
+                    key={i}
+                    className="w-1 h-4 rounded-full"
+                    style={{ backgroundColor: color }}
+                    animate={{ height: ['16px', '8px', '16px'] }}
+                    transition={{ 
+                      duration: 1.5,
+                      delay: i * 0.2,
+                      repeat: Infinity 
+                    }}
+                  />
+                ))}
+              </div>
+              <h3 className="text-lg font-semibold text-white/80">Input {index + 1} Statistics</h3>
+            </div>
+
+            {/* Stat Values */}
+            <div className="space-y-4">
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-white/60">Average</span>
+                  <span className="font-mono text-[#00FFFF]">{stat.avg.toFixed(3)}</span>
                 </div>
-                <div className="flex justify-between items-center">
-                  <span className="text-white/70">Std Deviation:</span>
-                  <span className="font-mono text-white/90">{stat.stdDev.toFixed(3)}</span>
+                <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-[#00FFFF] to-[#FF10F0]"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(stat.avg / 10) * 100}%` }}
+                    transition={{ duration: 1 }}
+                  />
                 </div>
+              </div>
+
+              <div>
+                <div className="flex justify-between mb-2">
+                  <span className="text-white/60">Std Deviation</span>
+                  <span className="font-mono text-[#7B61FF]">{stat.stdDev.toFixed(3)}</span>
+                </div>
+                <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-gradient-to-r from-[#7B61FF] to-[#00FF94]"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${(stat.stdDev / 2) * 100}%` }}
+                    transition={{ duration: 1 }}
+                  />
+                </div>
+              </div>
+
+              <div className="p-3 bg-white/5 rounded-xl">
                 <div className="flex justify-between items-center">
-                  <span className="text-white/70">Range:</span>
-                  <span className="font-mono text-white/90">
-                    [{stat.min.toFixed(3)}, {stat.max.toFixed(3)}]
-                  </span>
+                  <span className="text-white/60">Range</span>
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-[#00FF94]">{stat.min.toFixed(3)}</span>
+                    <div className="w-4 h-[1px] bg-white/20" />
+                    <span className="font-mono text-[#FF10F0]">{stat.max.toFixed(3)}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Super Smart and Kid-Friendly Summary */}
-        <div className="mt-6 bg-white/5 p-4 rounded-lg backdrop-blur-sm border border-white/10">
-          <h4 className="font-medium mb-3 text-white/90">Summary</h4>
-          <div className="space-y-4 text-sm">
+            {/* Decorative Corner Elements */}
+            <div className="absolute -top-px -right-px w-16 h-16">
+              <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 rounded-tr-lg
+                             border-[#00FFFF]/30" />
+            </div>
+            <div className="absolute -bottom-px -left-px w-16 h-16">
+              <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 rounded-bl-lg
+                             border-[#FF10F0]/30" />
+            </div>
+          </motion.div>
+        ))}
+
+        {/* Summary Section */}
+        <motion.div 
+          className="col-span-2 bg-black/40 backdrop-blur-xl p-6 rounded-2xl border border-white/10"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+        >
+          <h3 className="text-lg font-semibold text-white/80 mb-4">Analysis Summary</h3>
+          <div className="space-y-4 text-white/60">
             {summaries.map((summary, index) => (
-              <p key={index} className="text-white/70">{summary}</p>
+              <p key={index} className="leading-relaxed">{summary}</p>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };

@@ -12,6 +12,7 @@ export const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
+              {/* Hauba AI Logo */}
               <Brain className="w-8 h-8 text-blue-500" />
               <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
                 Hauba AI
@@ -27,16 +28,39 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Quick Links</h3>
             <ul className="space-y-3">
-              {['Documentation', 'Tutorials', 'API Reference', 'Examples'].map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="hover:text-blue-400 transition-colors duration-200"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {/* Links with "Soon" Labels */}
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Documentation (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Tutorials (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  API Reference (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Examples (Soon)
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -44,16 +68,39 @@ export const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-semibold mb-4 text-white">Resources</h3>
             <ul className="space-y-3">
-              {['Blog', 'Research Papers', 'Community', 'Support'].map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="hover:text-blue-400 transition-colors duration-200"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
+              {/* Resources with "Soon" Labels */}
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Blog (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Research Papers (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Community (Soon)
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="hover:text-blue-400 transition-colors duration-200"
+                >
+                  Support (Soon)
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -63,6 +110,7 @@ export const Footer: React.FC = () => {
             <p className="text-gray-400 text-sm mb-4">
               Stay informed about the latest features and releases.
             </p>
+            {/* Newsletter Subscription */}
             <Newsletter />
           </div>
         </div>
@@ -70,6 +118,7 @@ export const Footer: React.FC = () => {
         {/* Bottom Section */}
         <div className="mt-12 pt-8 border-t border-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+            {/* Footer Copyright */}
             <p className="text-gray-400 text-sm">
               © {currentYear} Hauba AI. All rights reserved.
             </p>
@@ -89,6 +138,7 @@ export const Footer: React.FC = () => {
                   className="text-gray-400 hover:text-blue-400 transition-colors duration-200"
                   aria-label={label}
                 >
+                  {/* Dynamic Social Icon */}
                   <Icon className="w-6 h-6" />
                 </a>
               ))}
@@ -96,7 +146,7 @@ export const Footer: React.FC = () => {
 
             {/* Legal Links */}
             <div className="flex items-center gap-6">
-              {['Privacy Policy', 'Terms of Service'].map((item) => (
+              {['Privacy Policy (Soon)', 'Terms of Service (Soon)'].map((item) => (
                 <a
                   key={item}
                   href="#"

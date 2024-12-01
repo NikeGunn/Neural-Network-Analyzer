@@ -4,7 +4,7 @@ import { Neuron } from './Neuron';
 import { Connection } from './Connection';
 import { Signal } from './Signal';
 import { generateNetwork } from '../utils/networkGenerator';
-import { processLayer, sigmoid } from '../utils/networkProcessor';
+import { sigmoid } from '../utils/networkProcessor';
 import type { Neuron as NeuronType, Connection as ConnectionType, Signal as SignalType, InputData } from '../types/neural-network';
 
 interface NeuralNetworkProps {
@@ -16,7 +16,6 @@ export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({ inputData }) => {
   const [connections, setConnections] = useState<ConnectionType[]>([]);
   const [signals, setSignals] = useState<SignalType[]>([]);
   const [activeNeurons, setActiveNeurons] = useState<Set<string>>(new Set());
-  const [hoveredNeuron, setHoveredNeuron] = useState<NeuronType | null>(null);
 
   useEffect(() => {
     const { neurons: n, connections: c } = generateNetwork();
@@ -118,8 +117,6 @@ export const NeuralNetwork: React.FC<NeuralNetworkProps> = ({ inputData }) => {
             key={neuron.id}
             neuron={neuron}
             isActive={activeNeurons.has(neuron.id)}
-            onMouseEnter={() => setHoveredNeuron(neuron)}
-            onMouseLeave={() => setHoveredNeuron(null)}
           />
         ))}
       </g>

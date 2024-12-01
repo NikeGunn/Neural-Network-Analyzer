@@ -4,12 +4,12 @@ import type { Neuron as NeuronType } from '../types/neural-network';
 
 interface NeuronProps {
   neuron: NeuronType;
-  isActive?: boolean;
+  isActive: boolean;
 }
 
 export const Neuron: React.FC<NeuronProps> = ({ neuron, isActive }) => {
   return (
-    <>
+    <g>
       {/* Outer glow ring */}
       <motion.circle
         cx={neuron.x}
@@ -118,6 +118,6 @@ export const Neuron: React.FC<NeuronProps> = ({ neuron, isActive }) => {
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
       />
-    </>
+    </g>
   );
 };
