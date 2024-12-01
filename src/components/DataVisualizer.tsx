@@ -142,7 +142,25 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
     return stats;
   };
 
+  const generateSummary = () => {
+    const summaries = stats.map((stat, index) => {
+      const isLowVariation = stat.stdDev < 1;
+      return `
+      Input ${index + 1}:
+      - The average is like the "middle value" (${stat.avg.toFixed(2)}), helping us see what most numbers look like.
+      - The standard deviation is ${stat.stdDev.toFixed(2)}. ${
+        isLowVariation
+          ? "This means the numbers are close to each other, like classmates in a group photo."
+          : "This means the numbers are spread out, like students running across a playground."
+      }
+      - The range (${stat.min.toFixed(2)} to ${stat.max.toFixed(2)}) shows the smallest and largest values.
+      `;
+    });
+    return summaries;
+  };
+
   const stats = calculateStats();
+  const summaries = generateSummary();
 
   return (
     <div className="space-y-6">
@@ -178,26 +196,14 @@ export const DataVisualizer: React.FC<DataVisualizerProps> = ({ data }) => {
             </div>
           ))}
         </div>
-        
+
+        {/* Super Smart and Kid-Friendly Summary */}
         <div className="mt-6 bg-white/5 p-4 rounded-lg backdrop-blur-sm border border-white/10">
-          <h4 className="font-medium mb-3 text-white/90">Pattern Analysis</h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-2xl font-semibold text-white/90">{data.length}</span>
-              <span className="text-white/70 mt-1">Samples Processed</span>
-            </div>
-            <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-2xl font-semibold text-white/90">
-                {new Set(data.map(d => d.label)).size}
-              </span>
-              <span className="text-white/70 mt-1">Unique Labels</span>
-            </div>
-            <div className="flex flex-col items-center p-3 bg-white/5 rounded-lg">
-              <span className="text-lg font-semibold text-white/90 truncate max-w-full px-2">
-                {data[data.length - 1]?.label}
-              </span>
-              <span className="text-white/70 mt-1">Latest Input</span>
-            </div>
+          <h4 className="font-medium mb-3 text-white/90">Summary</h4>
+          <div className="space-y-4 text-sm">
+            {summaries.map((summary, index) => (
+              <p key={index} className="text-white/70">{summary}</p>
+            ))}
           </div>
         </div>
       </div>
