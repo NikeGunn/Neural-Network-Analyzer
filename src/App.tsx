@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Brain, ChevronRight } from 'lucide-react';
 import { NeuralNetwork } from './components/NeuralNetwork';
 import { DataInput } from './components/DataInput';
-import { NetworkInfo } from './components/NetworkInfo';
 import { ExampleSelector } from './components/ExampleSelector';
 import { DataVisualizer } from './components/DataVisualizer';
 import { Footer } from './components/Footer';
+import { NetworkInfo } from './components/NetworkInfo';
 import type { InputData, Example } from './types/neural-network';
 
 function App() {
   const [inputData, setInputData] = useState<InputData | undefined>();
   const [selectedExample, setSelectedExample] = useState<Example>();
   const [processedData, setProcessedData] = useState<InputData[]>([]);
+
+  const networkInfo = {
+    neurons: [],
+    connections: [],
+    activeNeuron: null
+  };
 
   const handleDataSubmit = (data: InputData) => {
     setInputData(data);
@@ -70,17 +76,11 @@ function App() {
             </div>
             
             <div className="bg-gray-800 rounded-lg p-6">
-              <h2 className="text-xl font-semibold mb-4">Network Information</h2>
-              <p className="text-gray-300">
-                This neural network visualization demonstrates how data flows through 
-                different layers. Try our example datasets or input your own data to see:
-              </p>
-              <ul className="mt-4 space-y-2 text-gray-300">
-                <li>• How input values propagate through layers</li>
-                <li>• Weight influences on connections</li>
-                <li>• Activation patterns in neurons</li>
-                <li>• Real-time data processing visualization</li>
-              </ul>
+              <NetworkInfo 
+                neurons={networkInfo.neurons}
+                connections={networkInfo.connections}
+                activeNeuron={networkInfo.activeNeuron}
+              />
             </div>
           </div>
         </div>
